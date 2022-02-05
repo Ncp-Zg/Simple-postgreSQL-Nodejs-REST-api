@@ -6,7 +6,7 @@ const pool = new Pool({
     password:process.env.PWD,
     port:5432,
     host:"localhost",
-    database:"users",
+    database:"authtodolist",
 })
 
 
