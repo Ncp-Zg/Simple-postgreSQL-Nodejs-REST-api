@@ -48,4 +48,25 @@ router.put("/todos/:id", async (req,res)=>{
     }
 })
 
+router.delete("/todos/:id",async(req,res)=>{
+  try {
+    const { id } = req.params;
+    const deleteTodo = await pool.query(
+      "DELETE FROM todos WHERE todo_id = $1 AND user_id = $2 RETURNING *",
+      [id,"e2b20fbc-03ee-4969-8b3b-f1f06066f4b9" ]
+    );
+
+    if(deleteTodo.rows.length === 0) {
+      return res.json("This Todo is not yours");
+    }
+
+    res.json("Todo was deleted")
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+})
+
+
+
 module.exports = router;
